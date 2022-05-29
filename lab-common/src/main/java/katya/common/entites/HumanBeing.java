@@ -63,7 +63,7 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
         return hasToothpick;
     }
 
-    public double getImpactSpeed() {
+    public Double getImpactSpeed() {
         return impactSpeed;
     }
 
