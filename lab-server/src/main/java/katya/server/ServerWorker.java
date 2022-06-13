@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ServerWorker {
-    private final String fileName;
     private final ServerCommandListener serverCommandListener = new ServerCommandListener();
     private Connector dbConnector;
     private DBManager dbManager;
@@ -24,10 +23,6 @@ public class ServerWorker {
     private CommandProcessor commandProcessor;
     private CommandManager commandManager;
     private CollectionManager collectionManager;
-
-    public ServerWorker(String fileName) {
-        this.fileName = fileName;
-    }
 
     public void startServerWorker() {
         dbConnector = new Connector();

@@ -10,9 +10,13 @@ import java.sql.Statement;
 
 public class Connector {
 
-    private final String dbUrl = "jdbc:postgresql://localhost:5432/studs";
-    private final String user = "postgres";
-    private final String pass = "338862";
+//    private final String dbUrl = "jdbc:postgresql://localhost:5432/studs";
+//    private final String user = "postgres";
+//    private final String pass = "338862";
+
+    private final String dbUrl = "jdbc:postgresql://pg:5432/studs";
+    private final String user = "s338862";
+    private final String pass = "hke453";
 
     public Connector() {
         try {
