@@ -30,6 +30,12 @@ public class Validator<T> {
 
     }
 
+    public static void validateQuantityOfArgs(String[] args, int amountOfArgs) throws IllegalArgumentException {
+        if (args.length != amountOfArgs) {
+            throw new IllegalArgumentException("Неверное количество аргументов, данная команда требует " + amountOfArgs + " аргументов");
+        }
+    }
+
     public Validator<T> withCheckingNull(boolean nullable) throws IllegalArgumentException {
         if ("null".equals(string)) {
             if (nullable) {
@@ -53,7 +59,11 @@ public class Validator<T> {
     }
 
     public Validator<T> withCheckingPredicate(Predicate<Object> predicate, String error) {
-        if (!"null".equals(string)) {
+        if (value == null && !"null".equals(string)) {
+            if (!predicate.test(string)) {
+                throw new IllegalArgumentException(error);
+            }
+        } else if (!"null".equals(string)) {
             if (!predicate.test(value)) {
                 throw new IllegalArgumentException(error);
             }
@@ -67,11 +77,5 @@ public class Validator<T> {
             value = (T) string;
         }
         return value;
-    }
-
-    public static void validateQuantityOfArgs(String[] args, int amountOfArgs) throws IllegalArgumentException {
-        if (args.length != amountOfArgs) {
-            throw new IllegalArgumentException("Неверное количество аргументов, данная команда требует " + amountOfArgs + " аргументов");
-        }
     }
 }

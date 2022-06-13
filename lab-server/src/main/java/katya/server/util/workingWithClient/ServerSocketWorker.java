@@ -1,9 +1,9 @@
 package katya.server.util.workingWithClient;
 
 import katya.common.util.DeSerializer;
-import katya.common.util.Request;
 import katya.common.util.Response;
 import katya.common.util.Serializer;
+import katya.server.util.RequestWithAddress;
 
 import java.io.IOException;
 import java.net.*;
@@ -35,19 +35,19 @@ public class ServerSocketWorker {
         datagramSocket.close();
     }
 
-    public Request receiveRequest() throws IOException, ClassNotFoundException {
+    public RequestWithAddress receiveRequest() throws IOException, ClassNotFoundException {
         int receivedSize = datagramSocket.getReceiveBufferSize();
         byte[] byteArray = new byte[receivedSize];
         DatagramPacket dpToReceive = new DatagramPacket(byteArray, byteArray.length);
         datagramSocket.receive(dpToReceive);
         clientAddress = dpToReceive.getSocketAddress();
         byteArray = dpToReceive.getData();
-        return DeSerializer.deSerializeRequest(byteArray);
+        return new RequestWithAddress(DeSerializer.deSerializeRequest(byteArray), clientAddress);
     }
 
-    public void sendResponse(Response response) throws IOException {
+    public void sendResponse(Response response, SocketAddress socketAddress) throws IOException {
         byte[] bufferToSend = Serializer.serializeResponse(response);
-        DatagramPacket datagramPacket = new DatagramPacket(bufferToSend, bufferToSend.length, clientAddress);
+        DatagramPacket datagramPacket = new DatagramPacket(bufferToSend, bufferToSend.length, socketAddress);
         datagramSocket.send(datagramPacket);
     }
 }

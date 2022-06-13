@@ -14,7 +14,7 @@ public final class ReceiveResponse {
             for (int i = 0; i < 50 && response == null; i++) {
                 try {
                     System.out.println("Ждем ответ от сервера...");
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

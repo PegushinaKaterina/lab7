@@ -13,8 +13,10 @@ public class GeneratorHumanBeing {
 
     public void generateHumanBeing() {
         state.generateHumanBeingFields();
+        state.setCreationDate();
         if (state.isCorrect()) {
             this.humanBeing = new HumanBeing(new HumanBeingBuilder()
+                    .withDate(state.getCreationDate())
                     .withName(state.getName())
                     .withCoordinates(state.getX(), state.getY())
                     .withRealHero(state.getRealHero())

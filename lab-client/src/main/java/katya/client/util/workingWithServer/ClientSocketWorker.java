@@ -59,13 +59,13 @@ public class ClientSocketWorker {
         return port;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
     public void setPort(int port) {
         this.port = port;
         this.socketAddress = new InetSocketAddress(host, port);
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public void setAddress(String address) throws UnknownHostException {

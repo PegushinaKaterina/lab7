@@ -3,6 +3,7 @@ package katya.client.util.workingWithServer;
 import katya.client.util.workingWithCommand.AvailableCommands;
 import katya.client.util.workingWithCommand.CommandToSend;
 import katya.common.entites.HumanBeing;
+import katya.common.entites.RequestType;
 import katya.common.util.Request;
 import katya.common.util.RequestBuilder;
 import katya.common.util.Validator;
@@ -27,6 +28,7 @@ public class RequestCreator {
         } else {
             throw new IllegalArgumentException("Такой команды не существует, для того, чтобы увидеть список команд введите HELP");
         }
+        request.setRequestTypeArgument(RequestType.COMMAND);
         return request;
     }
 
@@ -52,6 +54,7 @@ public class RequestCreator {
                 .withHumanBeingArgument(HumanBeing
                         .getGeneratorHumanBeing()
                         .getHumanBeing()));
+
     }
 
     private Request createRequestWithHumanBeingAndId(CommandToSend command) {

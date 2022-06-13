@@ -1,6 +1,7 @@
 package katya.common.util;
 
 import katya.common.entites.HumanBeing;
+import katya.common.entites.RequestType;
 
 public class RequestBuilder {
     private String commandName;
@@ -8,6 +9,9 @@ public class RequestBuilder {
     private Integer integerArgument;
     private Double doubleArgument;
     private HumanBeing humanBeingArgument;
+    private String usernameArgument;
+    private String passwordArgument;
+    private RequestType requestTypeArgument;
 
     public RequestBuilder withName(String commandName) {
         this.commandName = commandName;
@@ -34,6 +38,21 @@ public class RequestBuilder {
         return this;
     }
 
+    public RequestBuilder withUsernameArgument(String usernameArgument) {
+        this.usernameArgument = usernameArgument;
+        return this;
+    }
+
+    public RequestBuilder withPasswordArgument(String passwordArgument) {
+        this.passwordArgument = passwordArgument;
+        return this;
+    }
+
+    public RequestBuilder withRequestTypeArgument(RequestType requestTypeArgument) {
+        this.requestTypeArgument = requestTypeArgument;
+        return this;
+    }
+
     public String getCommandName() {
         return commandName;
     }
@@ -53,4 +72,18 @@ public class RequestBuilder {
     public HumanBeing getHumanBeingArgument() {
         return humanBeingArgument;
     }
+
+    public String getUsernameArgument() {
+        return usernameArgument;
+    }
+
+    public String getPasswordArgument() {
+        return passwordArgument;
+    }
+
+    public RequestType getRequestTypeArgument() {
+        return requestTypeArgument;
+    }
+
+
 }

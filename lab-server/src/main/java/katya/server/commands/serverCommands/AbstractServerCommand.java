@@ -1,4 +1,4 @@
-package katya.server;
+package katya.server.commands.serverCommands;
 
 public abstract class AbstractServerCommand {
     private final String name; // Имя
@@ -22,7 +22,7 @@ public abstract class AbstractServerCommand {
 
     @Override
     public String toString() {
-            return name + " - " + description;
+        return name + " - " + description;
     }
 
     public static class AbstractCommandBuilder {

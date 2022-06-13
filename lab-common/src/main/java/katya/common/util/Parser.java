@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public final class Parser {
     private static final int QUANTITY_OF_ARGS = 10;
+
     private Parser() {
     }
 

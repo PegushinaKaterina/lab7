@@ -5,9 +5,10 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public final class SocketInitializer {
+    private final static int MAX_PORT = 65535;
+
     private SocketInitializer() {
     }
-    private final static int MAX_PORT = 65535;
 
     public static boolean acceptAnswer(Scanner scanner) throws IllegalArgumentException {
         boolean answer = true;
@@ -23,7 +24,8 @@ public final class SocketInitializer {
         }
         return answer;
     }
-    public static boolean ask(String question, Scanner scanner){
+
+    public static boolean ask(String question, Scanner scanner) {
         System.out.println(question);
         boolean isRunning = true;
         boolean answer = true;
@@ -38,12 +40,11 @@ public final class SocketInitializer {
         return answer;
     }
 
-    public static String askForAddress(Scanner scanner){
+    public static String askForAddress(Scanner scanner) {
         String question = "Вы хотите использовать адрес сервера по умолчанию? Введите да/нет";
         boolean answer = ask(question, scanner);
         boolean isRunning = true;
         String address = null;
-        isRunning = true;
         while (isRunning) {
             try {
                 address = inputAddress(answer, scanner);
@@ -55,7 +56,7 @@ public final class SocketInitializer {
         return address;
     }
 
-    private static String inputAddress(boolean answer, Scanner scanner){
+    private static String inputAddress(boolean answer, Scanner scanner) {
         String address = null;
         try {
             if (!answer) {
@@ -69,7 +70,7 @@ public final class SocketInitializer {
         return address;
     }
 
-    public static Integer askForPort(Scanner scanner){
+    public static Integer askForPort(Scanner scanner) {
         String question = "Вы хотите использовать порт по умолчанию? Введите да/нет";
         boolean answer = ask(question, scanner);
         boolean isRunning = true;

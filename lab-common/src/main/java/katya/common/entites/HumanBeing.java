@@ -3,13 +3,11 @@ package katya.common.entites;
 import katya.common.state.GeneratorHumanBeing;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class HumanBeing implements Comparable<HumanBeing>, Serializable {
     public static final Double IMPACT_SPEED_MIN = -484.;
     private static final GeneratorHumanBeing GENERATOR_HUMAN_BEING = new GeneratorHumanBeing();
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private final String name;
     private final Coordinates coordinates;
     private final Boolean realHero;
@@ -19,7 +17,13 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
     private final Integer minutesOfWaiting;
     private final WeaponType weaponType;
     private final Car car;
+    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
     public HumanBeing(HumanBeingBuilder humanBeingBuilder) {
+        this.id = humanBeingBuilder.getId();
+        //this.creationDate = LocalDate.now();
+        this.creationDate = humanBeingBuilder.getCreationDate();
         this.name = humanBeingBuilder.getName();
         this.coordinates = humanBeingBuilder.getCoordinates();
         this.realHero = humanBeingBuilder.getRealHero();
@@ -31,20 +35,24 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
         this.car = humanBeingBuilder.getCar();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public static GeneratorHumanBeing getGeneratorHumanBeing() {
+        return GENERATOR_HUMAN_BEING;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Date getCreationDate() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getName() {
@@ -81,10 +89,6 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
 
     public Car getCar() {
         return car;
-    }
-
-    public static GeneratorHumanBeing getGeneratorHumanBeing() {
-        return GENERATOR_HUMAN_BEING;
     }
 
     @Override

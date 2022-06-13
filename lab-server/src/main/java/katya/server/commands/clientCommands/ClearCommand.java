@@ -1,25 +1,23 @@
 package katya.server.commands.clientCommands;
 
-import katya.common.util.Response;
 import katya.common.util.Request;
-import katya.common.util.ResponseBuilder;
-import katya.server.entites.CollectionManager;
+import katya.common.util.Response;
+import katya.server.util.workingWithCommand.CommandProcessor;
 
 public class ClearCommand extends AbstractClientCommand {
-    private final CollectionManager collectionManager;
+    private final CommandProcessor commandProcessor;
 
-    public ClearCommand(CollectionManager collectionManager) {
+    public ClearCommand(CommandProcessor commandProcessor) {
         super(new AbstractCommandBuilder()
                 .withName("clear")
                 .withQuantityOfArgs(0)
                 .withDescription("очистить коллекцию")
                 .withGeneratesHumanBeing(false));
-        this.collectionManager = collectionManager;
+        this.commandProcessor = commandProcessor;
     }
 
     @Override
     public Response executeCommand(Request request) {
-       return new Response(new ResponseBuilder()
-               .withMessageToResponse(collectionManager.clear()));
+        return commandProcessor.clear(request);
     }
 }

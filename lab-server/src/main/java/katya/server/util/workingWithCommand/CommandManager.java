@@ -2,8 +2,7 @@ package katya.server.util.workingWithCommand;
 
 import katya.common.util.Request;
 import katya.common.util.Response;
-import katya.server.AvailableCommands;
-import katya.server.entites.CollectionManager;
+import katya.server.commands.AvailableCommands;
 
 import java.time.format.DateTimeFormatter;
 
@@ -12,8 +11,28 @@ public class CommandManager {
     private static CommandHistory commandHistory = new CommandHistory();
     private final AvailableCommands availableCommands;
 
-    public CommandManager(CollectionManager collectionManager) {
-        availableCommands = new AvailableCommands(collectionManager);
+    public CommandManager(CommandProcessor commandProcessor) {
+        availableCommands = new AvailableCommands(commandProcessor);
+    }
+
+    public static void changeStatus() {
+        statusOfCommandListening = !statusOfCommandListening;
+    }
+
+    public static boolean isStatusOfCommandListening() {
+        return statusOfCommandListening;
+    }
+
+    public static void setStatusOfCommandListening(boolean statusOfCommandListening) {
+        CommandManager.statusOfCommandListening = statusOfCommandListening;
+    }
+
+    public static CommandHistory getCommandHistory() {
+        return commandHistory;
+    }
+
+    public static void setCommandHistory(CommandHistory commandHistory) {
+        CommandManager.commandHistory = commandHistory;
     }
 
     public Response executeClientCommand(Request request) {
@@ -30,28 +49,8 @@ public class CommandManager {
         }
     }
 
-    public static void changeStatus() {
-        statusOfCommandListening = !statusOfCommandListening;
-    }
-
     public boolean getStatusOfCommandListening() {
         return statusOfCommandListening;
-    }
-
-    public static void setStatusOfCommandListening(boolean statusOfCommandListening) {
-        CommandManager.statusOfCommandListening = statusOfCommandListening;
-    }
-
-    public static void setCommandHistory(CommandHistory commandHistory) {
-        CommandManager.commandHistory = commandHistory;
-    }
-
-    public static boolean isStatusOfCommandListening() {
-        return statusOfCommandListening;
-    }
-
-    public static CommandHistory getCommandHistory() {
-        return commandHistory;
     }
 
     public AvailableCommands getAvailableCommands() {

@@ -1,7 +1,5 @@
 package katya.server.commands.serverCommands;
 
-import katya.server.AbstractServerCommand;
-
 import java.util.HashMap;
 
 public class ServerHelpCommand extends AbstractServerCommand {

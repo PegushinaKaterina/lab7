@@ -13,6 +13,7 @@ import katya.common.util.Validator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 public final class ExecuteScriptCommand {
@@ -21,7 +22,7 @@ public final class ExecuteScriptCommand {
     private ExecuteScriptCommand() {
     }
 
-    public static void executeCommand(String[] commandArgs, ClientSocketWorker clientSocketWorker) {
+    public static void executeCommand(String[] commandArgs, ClientSocketWorker clientSocketWorker, List<String> userInfo) {
         try {
             Validator.validateQuantityOfArgs(commandArgs, 1);
             String fileName = commandArgs[0];
@@ -32,7 +33,7 @@ public final class ExecuteScriptCommand {
             CommandListener commandListener = CommandManager.getCommandListener();
             do {
                 CommandToSend command = commandListener.readCommandFromScript(scanner);
-                CommandManager.performCommand(command, clientSocketWorker);
+                CommandManager.performCommand(command, clientSocketWorker, userInfo);
             } while (scanner.hasNextLine());
             HASH_SET.remove(commandArgs[0]);
             scanner.close();

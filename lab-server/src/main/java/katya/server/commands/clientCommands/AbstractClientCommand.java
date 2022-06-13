@@ -1,7 +1,7 @@
 package katya.server.commands.clientCommands;
 
-import katya.common.util.Response;
 import katya.common.util.Request;
+import katya.common.util.Response;
 
 public abstract class AbstractClientCommand {
     private final String name; // Имя
@@ -35,6 +35,7 @@ public abstract class AbstractClientCommand {
     public String getDescriptionOfArgs() {
         return descriptionOfArgs;
     }
+
     public boolean getGeneratesHumanBeing() {
         return generatesHumanBeing;
     }

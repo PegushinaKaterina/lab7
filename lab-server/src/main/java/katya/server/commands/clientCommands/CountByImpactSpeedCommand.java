@@ -2,32 +2,23 @@ package katya.server.commands.clientCommands;
 
 import katya.common.util.Request;
 import katya.common.util.Response;
-import katya.common.util.ResponseBuilder;
-import katya.server.entites.CollectionManager;
+import katya.server.util.workingWithCommand.CommandProcessor;
 
 public class CountByImpactSpeedCommand extends AbstractClientCommand {
-    private final CollectionManager collectionManager;
+    private final CommandProcessor commandProcessor;
 
-    public CountByImpactSpeedCommand(CollectionManager collectionManager) {
+    public CountByImpactSpeedCommand(CommandProcessor commandProcessor) {
         super(new AbstractCommandBuilder()
                 .withName("count_by_impact_speed")
                 .withQuantityOfArgs(1)
                 .withDescription("вывести количество элементов, значение поля СКОРОСТЬ УДАРА которых равно заданному. ")
                 .withDescriptionOfArgs("Значение поля СКОРОСТЬ УДАРА - вещественное число, которое больше чем -484")
                 .withGeneratesHumanBeing(false));
-        this.collectionManager = collectionManager;
+        this.commandProcessor = commandProcessor;
     }
 
     @Override
     public Response executeCommand(Request request) {
-        try {
-            return new Response(new ResponseBuilder()
-                    .withMessageToResponse(collectionManager
-                            .countByImpactSpeed(request.getDoubleArgument())));
-        } catch (IllegalArgumentException e) {
-            return new Response(new ResponseBuilder()
-                    .withMessageToResponse(e.getMessage()));
-        }
-
+        return commandProcessor.countByImpactSpeed(request);
     }
 }

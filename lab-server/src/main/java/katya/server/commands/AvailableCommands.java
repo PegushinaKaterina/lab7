@@ -1,12 +1,11 @@
-package katya.server;
+package katya.server.commands;
 
 import katya.server.commands.clientCommands.*;
-import katya.server.AbstractServerCommand;
+import katya.server.commands.serverCommands.AbstractServerCommand;
 import katya.server.commands.serverCommands.ExitCommand;
-import katya.server.commands.serverCommands.SaveCommand;
 import katya.server.commands.serverCommands.ServerHelpCommand;
-import katya.server.entites.CollectionManager;
 import katya.server.util.workingWithCommand.CommandManager;
+import katya.server.util.workingWithCommand.CommandProcessor;
 
 import java.util.HashMap;
 
@@ -14,20 +13,20 @@ public class AvailableCommands {
     public static final HashMap<String, AbstractClientCommand> CLIENT_AVAILABLE_COMMANDS = new HashMap<>();
     public static final HashMap<String, AbstractServerCommand> SERVER_AVAILABLE_COMMANDS = new HashMap<>();
 
-    public AvailableCommands(CollectionManager collectionManager) {
-        AbstractClientCommand clientHelpCommand = new ClientHelpCommand(CLIENT_AVAILABLE_COMMANDS);
-        AbstractClientCommand infoCommand =   new InfoCommand(collectionManager);
-        AbstractClientCommand showCommand =  new ShowCommand(collectionManager);
-        AbstractClientCommand addCommand = new AddCommand(collectionManager);
-        AbstractClientCommand updateCommand = new UpdateCommand(collectionManager);
-        AbstractClientCommand removeByIdCommand = new RemoveByIdCommand(collectionManager);
-        AbstractClientCommand clearCommand = new ClearCommand(collectionManager);
-        AbstractClientCommand removeHead = new RemoveHeadCommand(collectionManager);
-        AbstractClientCommand removeLower = new RemoveLoverCommand(collectionManager);
-        AbstractClientCommand historyCommand = new HistoryCommand(CommandManager.getCommandHistory().getHistory());
-        AbstractClientCommand removeAllByMinutesOfWaiting = new RemoveAllByMinutesOfWaitingCommand(collectionManager);
-        AbstractClientCommand sumOfMinutesOfWaiting = new SumOfMinutesOfWaitingCommand(collectionManager);
-        AbstractClientCommand countByImpactSpeed = new CountByImpactSpeedCommand(collectionManager);
+    public AvailableCommands(CommandProcessor commandProcessor) {
+        AbstractClientCommand clientHelpCommand = new ClientHelpCommand(commandProcessor, CLIENT_AVAILABLE_COMMANDS);
+        AbstractClientCommand infoCommand = new InfoCommand(commandProcessor);
+        AbstractClientCommand showCommand = new ShowCommand(commandProcessor);
+        AbstractClientCommand addCommand = new AddCommand(commandProcessor);
+        AbstractClientCommand updateCommand = new UpdateCommand(commandProcessor);
+        AbstractClientCommand removeByIdCommand = new RemoveByIdCommand(commandProcessor);
+        AbstractClientCommand clearCommand = new ClearCommand(commandProcessor);
+        AbstractClientCommand removeHead = new RemoveHeadCommand(commandProcessor);
+        AbstractClientCommand removeLower = new RemoveLowerCommand(commandProcessor);
+        AbstractClientCommand historyCommand = new HistoryCommand(commandProcessor, CommandManager.getCommandHistory().getHistory());
+        AbstractClientCommand removeAllByMinutesOfWaiting = new RemoveAllByMinutesOfWaitingCommand(commandProcessor);
+        AbstractClientCommand sumOfMinutesOfWaiting = new SumOfMinutesOfWaitingCommand(commandProcessor);
+        AbstractClientCommand countByImpactSpeed = new CountByImpactSpeedCommand(commandProcessor);
 
         CLIENT_AVAILABLE_COMMANDS.put(clientHelpCommand.getName(), clientHelpCommand);
         CLIENT_AVAILABLE_COMMANDS.put(infoCommand.getName(), infoCommand);
@@ -44,11 +43,9 @@ public class AvailableCommands {
         CLIENT_AVAILABLE_COMMANDS.put(countByImpactSpeed.getName(), countByImpactSpeed);
 
         AbstractServerCommand serverHelpCommand = new ServerHelpCommand(SERVER_AVAILABLE_COMMANDS);
-        AbstractServerCommand saveCommand = new SaveCommand(collectionManager);
-        AbstractServerCommand exitCommand = new ExitCommand(collectionManager);
+        AbstractServerCommand exitCommand = new ExitCommand();
 
         SERVER_AVAILABLE_COMMANDS.put(serverHelpCommand.getName(), serverHelpCommand);
-        SERVER_AVAILABLE_COMMANDS.put(saveCommand.getName(), saveCommand);
         SERVER_AVAILABLE_COMMANDS.put(exitCommand.getName(), exitCommand);
     }
 }

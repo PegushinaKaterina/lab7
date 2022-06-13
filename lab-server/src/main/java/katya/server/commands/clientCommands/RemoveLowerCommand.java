@@ -4,24 +4,20 @@ import katya.common.util.Request;
 import katya.common.util.Response;
 import katya.server.util.workingWithCommand.CommandProcessor;
 
-/**
- * Класс команды: add {element} : добавить новый элемент в коллекцию
- */
-public class AddCommand extends AbstractClientCommand {
+public class RemoveLowerCommand extends AbstractClientCommand {
     private final CommandProcessor commandProcessor;
 
-    public AddCommand(CommandProcessor commandProcessor) {
+    public RemoveLowerCommand(CommandProcessor commandProcessor) {
         super(new AbstractCommandBuilder()
-                .withName("add")
+                .withName("remove_lower")
                 .withQuantityOfArgs(0)
-                .withDescription("добавить новый элемент в коллекцию")
+                .withDescription("удалить из коллекции все элементы, меньшие, чем заданный")
                 .withGeneratesHumanBeing(true));
         this.commandProcessor = commandProcessor;
     }
 
     @Override
     public Response executeCommand(Request request) {
-        return commandProcessor.add(request);
-
+        return commandProcessor.removeLower(request);
     }
 }

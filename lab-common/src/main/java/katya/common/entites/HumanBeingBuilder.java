@@ -1,6 +1,10 @@
 package katya.common.entites;
 
+import java.time.LocalDate;
+
 public class HumanBeingBuilder {
+    private Long id;
+    private LocalDate creationDate;
     private String name;
     private Coordinates coordinates;
     private Boolean realHero;
@@ -10,6 +14,16 @@ public class HumanBeingBuilder {
     private Integer minutesOfWaiting;
     private WeaponType weaponType;
     private Car car = new Car(null);
+
+    public HumanBeingBuilder withId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public HumanBeingBuilder withDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
 
     public HumanBeingBuilder withName(String name) {
         this.name = name;
@@ -54,6 +68,14 @@ public class HumanBeingBuilder {
     public HumanBeingBuilder withCar(Boolean cool) {
         this.car = new Car(cool);
         return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
     public String getName() {

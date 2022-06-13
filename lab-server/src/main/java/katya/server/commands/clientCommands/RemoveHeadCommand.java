@@ -2,30 +2,22 @@ package katya.server.commands.clientCommands;
 
 import katya.common.util.Request;
 import katya.common.util.Response;
-import katya.common.util.ResponseBuilder;
-import katya.server.entites.CollectionManager;
+import katya.server.util.workingWithCommand.CommandProcessor;
 
 public class RemoveHeadCommand extends AbstractClientCommand {
-    private final CollectionManager collectionManager;
+    private final CommandProcessor commandProcessor;
 
-    public RemoveHeadCommand(CollectionManager collectionManager) {
+    public RemoveHeadCommand(CommandProcessor commandProcessor) {
         super(new AbstractCommandBuilder()
                 .withName("remove_head")
                 .withQuantityOfArgs(0)
                 .withDescription("вывести первый элемент коллекции и удалить его")
                 .withGeneratesHumanBeing(false));
-        this.collectionManager = collectionManager;
+        this.commandProcessor = commandProcessor;
     }
 
     @Override
     public Response executeCommand(Request request) {
-        try {
-            return new Response(new ResponseBuilder()
-                    .withMessageToResponse(collectionManager.removeHead()));
-        } catch (IllegalArgumentException e) {
-            return new Response(new ResponseBuilder()
-                    .withMessageToResponse(e.getMessage()));
-        }
-
+        return commandProcessor.removeHead(request);
     }
 }

@@ -7,7 +7,9 @@ import java.util.LinkedList;
 public class ResponseBuilder {
     private String messageToResponse;
     private HumanBeing humanBeingToResponse;
-    private LinkedList<HumanBeing> collectionToResponse;
+    private LinkedList<HumanBeing> usersElementsToResponse;
+    private LinkedList<HumanBeing> alienElementsToResponse;
+    private boolean successToResponse = true;
 
     public ResponseBuilder withMessageToResponse(String messageToResponse) {
         this.messageToResponse = messageToResponse;
@@ -19,8 +21,18 @@ public class ResponseBuilder {
         return this;
     }
 
-    public ResponseBuilder withCollectionToResponse(LinkedList<HumanBeing> collectionToResponse) {
-        this.collectionToResponse = collectionToResponse;
+    public ResponseBuilder withUsersCollectionToResponse(LinkedList<HumanBeing> usersElementsToResponse) {
+        this.usersElementsToResponse = usersElementsToResponse;
+        return this;
+    }
+
+    public ResponseBuilder withAlienCollectionToResponse(LinkedList<HumanBeing> alienElementsToResponse) {
+        this.alienElementsToResponse = alienElementsToResponse;
+        return this;
+    }
+
+    public ResponseBuilder withSuccessToResponse(boolean successToResponse) {
+        this.successToResponse = successToResponse;
         return this;
     }
 
@@ -32,7 +44,15 @@ public class ResponseBuilder {
         return humanBeingToResponse;
     }
 
-    public LinkedList<HumanBeing> getCollectionToResponse() {
-        return collectionToResponse;
+    public LinkedList<HumanBeing> getUsersElementsToResponse() {
+        return usersElementsToResponse;
+    }
+
+    public LinkedList<HumanBeing> getAlienElementsToResponse() {
+        return alienElementsToResponse;
+    }
+
+    public boolean isSuccess() {
+        return successToResponse;
     }
 }

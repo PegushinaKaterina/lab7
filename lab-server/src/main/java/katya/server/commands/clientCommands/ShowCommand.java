@@ -1,25 +1,23 @@
 package katya.server.commands.clientCommands;
 
-import katya.common.util.Response;
 import katya.common.util.Request;
-import katya.common.util.ResponseBuilder;
-import katya.server.entites.CollectionManager;
+import katya.common.util.Response;
+import katya.server.util.workingWithCommand.CommandProcessor;
 
 public class ShowCommand extends AbstractClientCommand {
-    private final CollectionManager collectionManager;
+    private final CommandProcessor commandProcessor;
 
-    public ShowCommand(CollectionManager collectionManager) {
+    public ShowCommand(CommandProcessor commandProcessor) {
         super(new AbstractCommandBuilder()
                 .withName("show")
                 .withQuantityOfArgs(0)
                 .withDescription("вывести в стандартный поток вывода все элементы коллекции в строковом представлении")
                 .withGeneratesHumanBeing(false));
-        this.collectionManager = collectionManager;
+        this.commandProcessor = commandProcessor;
     }
 
     @Override
     public Response executeCommand(Request request) {
-        return new Response(new ResponseBuilder()
-                .withCollectionToResponse(collectionManager.getCollectionHumanBeing()));
+        return commandProcessor.show(request);
     }
 }

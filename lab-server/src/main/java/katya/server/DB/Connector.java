@@ -1,7 +1,7 @@
-package BD;
+package katya.server.DB;
 
-import BDInterface.SQLConsumer;
-import BDInterface.SQLFunction;
+import katya.server.DBInterface.SQLConsumer;
+import katya.server.DBInterface.SQLFunction;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class Connector {
 
-    private final String dbUrl = "jdbc:postgresql://pg:5432/studs";
+    private final String dbUrl = "jdbc:postgresql://localhost:5432/studs";
     private final String user = "postgres";
     private final String pass = "338862";
 
@@ -23,6 +23,7 @@ public class Connector {
             System.exit(1);
         } catch (SQLException e) {
             System.out.println("Error occurred during initializing tables!" + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
     }
@@ -57,11 +58,6 @@ public class Connector {
                 + "id BIGINT PRIMARY KEY DEFAULT nextval('users_id_seq')"
                 + ");");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS weapon_type "
-                + "("
-                + "weapon_type varchar(7) PRIMARY KEY,"
-                + ");");
-
         statement.execute("CREATE TABLE IF NOT EXISTS human_being "
                 + "("
                 + "id BIGINT PRIMARY KEY DEFAULT nextval('human_being_id_seq'),"
@@ -69,46 +65,17 @@ public class Connector {
                 + "name VARCHAR(50) NOT NULL CHECK(name<>''),"
                 + "x INT NOT NULL CHECK(x <= 877),"
                 + "y INT NOT NULL,"
-                + "real_hero REAL NOT NULL,"
-                + "has_toothpick REAL NOT NULL,"
-                + "impact_speed DOUBLE CHECK(impact_speed > -484),"
+                + "real_hero BOOLEAN NOT NULL,"
+                + "has_toothpick BOOLEAN NOT NULL,"
+                + "impact_speed FLOAT CHECK(impact_speed > -484),"
                 + "soundtrack_name VARCHAR(150) NOT NULL,"
                 + "minutes_of_waiting INTEGER NOT NULL,"
-                + "weapon_type varchar(7) NOT NULL CHECK(weapon_type =  'PISTOL' "
+                + "weapon_type varchar(7) NOT NULL CHECK(weapon_type = 'PISTOL' "
                 + "OR weapon_type = 'SHOTGUN' "
                 + "OR weapon_type = 'BAT'),"
-                + "cool REAL"
+                + "cool BOOLEAN,"
                 + "owner_id BIGINT NOT NULL REFERENCES users (id)"
                 + ");");
-
-        /*statement.execute("CREATE TABLE IF NOT EXISTS human_being "
-                + "name VARCHAR(50) NOT NULL,"
-                + "x INT NOT NULL CHECK(x <= 877),"
-                + "y INT NOT NULL,"
-                + "real_hero REAL NOT NULL,"
-                + "has_toothpick REAL NOT NULL,"
-                + "impact_speed DOUBLE CHECK(impact_speed > -484),"
-                + "soundtrack_name VARCHAR(150) NOT NULL,"
-                + "minutes_of_waiting INTEGER NOT NULL,"
-                + "weapon_type varchar(7) NOT NULL CHECK(weapon_type =  'PISTOL' "
-                + "OR weapon_type = 'SHOTGUN' "
-                + "OR weapon_type = 'BAT'),"
-                + "cool REAL"
-                + ");");
-
-           private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-        private String name; //Поле не может быть null, Строка не может быть пустой
-        private Coordinates coordinates; //Поле не может быть null
-        private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-        private Boolean realHero; //Поле не может быть null
-        private boolean hasToothpick;
-        private Double impactSpeed; //Значение поля должно быть больше -484, Поле может быть null
-        private String soundtrackName; //Поле не может быть null
-        private Integer minutesOfWaiting; //Поле не может быть null
-        private WeaponType weaponType; //Поле не может быть null
-        private Car car; //Поле не может быть null
-       */
-
         connection.close();
     }
 }

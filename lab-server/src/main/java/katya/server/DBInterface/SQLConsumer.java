@@ -1,4 +1,4 @@
-package BDInterface;
+package katya.server.DBInterface;
 
 import java.sql.SQLException;
 
