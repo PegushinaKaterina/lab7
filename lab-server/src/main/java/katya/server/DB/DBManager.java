@@ -226,7 +226,7 @@ public class DBManager {
             ResultSet result = preparedStatement.executeQuery();
             result.next();
             if (result.getInt("count") < 1) {
-                throw new IllegalArgumentException("Человека с таким id не существует");
+                throw new IllegalArgumentException("У вас нет права доступа или человека с таким id не существует");
             }
         });
     }
